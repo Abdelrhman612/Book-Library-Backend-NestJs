@@ -9,10 +9,14 @@ import {
   SignInInterFace,
   SignUpInterFace,
 } from './InterFace/Auth.interFace copy';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) {}
   async SignUp(signUphDto: SignUpInterFace) {
     const { name, email, password } = signUphDto;
     const user = await this.prisma.user.findUnique({ where: { email: email } });
@@ -38,6 +42,8 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException();
     }
-    return { status: 'success', message: 'User is loged In' };
+    const payload = { id: user.id, email: user.email };
+    const token = await this.jwtService.signAsync(payload);
+    return { status: 'success', message: 'User is loged In', data: { token } };
   }
 }

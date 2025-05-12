@@ -12,8 +12,8 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from 'src/Module/auth/Guards/Auth.Guard';
-import { Roles } from 'src/Module/auth/decorator/user.decorator';
+import { AuthGuard } from 'src/Guards/Auth.Guard';
+import { Roles } from 'src/decorator/role.decorator';
 
 @Controller('v1/user') // Base route for all user-related endpoints
 @UseGuards(AuthGuard) // Apply authentication guard to protect all routes

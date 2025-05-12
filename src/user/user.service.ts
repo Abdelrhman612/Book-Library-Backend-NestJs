@@ -10,29 +10,31 @@ export class UserService {
     const { email } = createUserDto;
     const user = await this.prisma.user.findUnique({ where: { email: email } });
     if (user) {
-      new Error('User Already exst');
+      throw new Error('User Already exst');
     }
     const AddUser = await this.prisma.user.create({ data: createUserDto });
     return { status: 'success', data: { AddUser } };
   }
 
   async findAll() {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      select: { id: true, name: true, email: true, role: true },
+    });
     return { status: 'success', length: users.length, data: { users } };
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const user = await this.prisma.user.findUnique({ where: { id: id } });
     if (!user) {
-      new NotFoundException('User is not found');
+      throw new NotFoundException('User is not found');
     }
     return { status: 'sucess', data: user };
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.prisma.user.findUnique({ where: { id: id } });
     if (!user) {
-      new NotFoundException('User is not found');
+      throw new NotFoundException('User is not found');
     }
     const NewUser = await this.prisma.user.update({
       where: { id: id },
@@ -41,16 +43,15 @@ export class UserService {
     return { status: 'success', data: NewUser };
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const user = await this.prisma.user.findUnique({ where: { id: id } });
     if (!user) {
-      new NotFoundException('User is not found');
+      throw new NotFoundException('User is not found');
     }
-    const deleteuser = this.prisma.user.delete({ where: { id: id } });
+    await this.prisma.user.delete({ where: { id: id } });
     return {
       status: 'success',
       message: 'delete user is successfully',
-      data: deleteuser,
     };
   }
 }

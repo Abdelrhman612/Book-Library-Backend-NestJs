@@ -44,7 +44,10 @@ export class UserService {
    * @throws NotFoundException if the user is not found.
    */
   async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: id } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: id },
+      select: { id: true, name: true, email: true, role: true },
+    });
     if (!user) {
       throw new NotFoundException('User is not found');
     }
@@ -60,7 +63,10 @@ export class UserService {
    * @throws NotFoundException if the user is not found.
    */
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: id } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: id },
+      select: { id: true, name: true, email: true, role: true },
+    });
     if (!user) {
       throw new NotFoundException('User is not found');
     }
@@ -79,7 +85,9 @@ export class UserService {
    * @throws NotFoundException if the user is not found.
    */
   async remove(id: string) {
-    const user = await this.prisma.user.findUnique({ where: { id: id } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: id },
+    });
     if (!user) {
       throw new NotFoundException('User is not found');
     }

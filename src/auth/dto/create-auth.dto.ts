@@ -12,6 +12,9 @@ export class SignUphDto {
   @IsString({ message: 'Password must be a string' })
   @IsNotEmpty({ message: 'Password is required' })
   password: string;
+  @IsString({ message: 'Role must be a string' })
+  @IsNotEmpty({ message: ' Role is required' })
+  role: string;
 }
 export class SignInhDto {
   @IsEmail({}, { message: 'Email must be a valid email address' })

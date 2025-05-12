@@ -12,4 +12,7 @@ export class CreateUserDto {
   @IsString({ message: 'Password must be a string' })
   @IsNotEmpty({ message: 'Password is required' })
   password: string;
+  @IsString({ message: 'Role must be a string' })
+  @IsNotEmpty({ message: ' Role is required' })
+  role: string;
 }

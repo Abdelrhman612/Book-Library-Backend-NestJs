@@ -5,7 +5,6 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  controllers: [AuthController],
   imports: [
     ConfigModule.forRoot(),
     JwtModule.register({
@@ -13,6 +12,8 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: { expiresIn: process.env.JWT_EXPIRES },
     }),
   ],
+  controllers: [AuthController],
+
   providers: [AuthService],
 })
 export class AuthModule {}

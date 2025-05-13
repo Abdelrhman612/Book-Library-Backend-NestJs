@@ -20,7 +20,10 @@ export class UserService {
     if (user) {
       throw new Error('User Already exists');
     }
-    const AddUser = await this.prisma.user.create({ data: createUserDto });
+    const AddUser = await this.prisma.user.create({
+      data: createUserDto,
+      select: { id: true, name: true, email: true, role: true },
+    });
     return { status: 'success', data: { AddUser } };
   }
 

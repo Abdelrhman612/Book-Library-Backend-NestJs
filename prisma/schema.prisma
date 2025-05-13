@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  name      String
-  email     String     @unique
-  password  String
-  role      String     @default("user")
-  books     Book[]
-  reviews   Review[]
-  favorites Favorite[]
+  id               String     @id @default(uuid())
+  name             String
+  email            String     @unique
+  password         String
+  role             String     @default("user")
+  verificationCode String?
+  books            Book[]
+  reviews          Review[]
+  favorites        Favorite[]
 }
 
 model Book {

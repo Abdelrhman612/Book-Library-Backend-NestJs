@@ -21,11 +21,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {} // Inject UserService to handle user-related logic
 
   /**
-   * Create a new user
+   * Create a new user with the 'admin' role
    * @param createUserDto - Data Transfer Object containing user creation details
    * @returns The created user
    */
   @Post()
+  @Roles(['admin'])
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
     createUserDto: CreateUserDto,
@@ -38,8 +39,8 @@ export class UserController {
    * Restricted to users with the 'admin' role
    * @returns An array of users
    */
-  @Roles(['admin'])
   @Get()
+  @Roles(['admin'])
   findAll() {
     return this.userService.findAll();
   }

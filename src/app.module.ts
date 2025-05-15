@@ -3,7 +3,7 @@ import { PrismaModule } from './DataBase/prisma.module';
 import { UserModule } from './Module/user/user.module';
 import { AuthModule } from './Module/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { BookModule } from './book/book.module';
+import { BookModule } from './Module/book/book.module';
 
 @Module({
   imports: [

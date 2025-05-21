@@ -4,12 +4,22 @@ import { UserModule } from './Module/user/user.module';
 import { AuthModule } from './Module/auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { BookModule } from './Module/book/book.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
     PrismaModule,
     UserModule,
     AuthModule,
+    BookModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      serveRoot: '/client',
+      serveStaticOptions: {
+        index: false,
+      },
+    }),
     MailerModule.forRoot({
       transport: {
         service: 'gmail',
@@ -19,7 +29,6 @@ import { BookModule } from './Module/book/book.module';
         },
       },
     }),
-    BookModule,
   ],
   controllers: [],
   providers: [],

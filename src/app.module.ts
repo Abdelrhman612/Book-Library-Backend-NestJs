@@ -6,6 +6,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { BookModule } from './Module/book/book.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CloudinaryModule } from './Module/cloudinary/cloudinary.module';
+import { CloudinaryController } from './Module/cloudinary/cloudinary.controller';
 
 @Module({
   imports: [
@@ -29,8 +31,9 @@ import { join } from 'path';
         },
       },
     }),
+    CloudinaryModule,
   ],
-  controllers: [],
+  controllers: [CloudinaryController],
   providers: [],
 })
 export class AppModule {}

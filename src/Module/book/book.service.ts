@@ -36,7 +36,7 @@ export class BookService {
     }
     const newBook = await this.prisma.book.update({
       where: { id: id },
-      data: updateBookDto,
+      data: { ...updateBookDto },
     });
 
     return { status: 'success', data: newBook };

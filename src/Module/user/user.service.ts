@@ -22,7 +22,7 @@ export class UserService {
     }
     const AddUser = await this.prisma.user.create({
       data: createUserDto,
-      select: { id: true, name: true, email: true, role: true },
+      include: { Review: true, books: true },
     });
     return { status: 'success', data: { AddUser } };
   }
@@ -34,7 +34,7 @@ export class UserService {
    */
   async findAll() {
     const users = await this.prisma.user.findMany({
-      select: { id: true, name: true, email: true, role: true },
+      include: { Review: true, books: true },
     });
     return { status: 'success', length: users.length, data: { users } };
   }
@@ -76,6 +76,7 @@ export class UserService {
     const NewUser = await this.prisma.user.update({
       where: { id: id },
       data: { ...updateUserDto },
+      include: { Review: true, books: true },
     });
     return { status: 'success', data: NewUser };
   }

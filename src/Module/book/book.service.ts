@@ -12,17 +12,25 @@ export class BookService {
     if (book) {
       throw new Error('Book Already exst');
     }
-    const addBook = await this.prisma.book.create({ data: createBookDto });
+    const addBook = await this.prisma.book.create({
+      data: createBookDto,
+      include: { Review: true },
+    });
     return { status: 'success', data: addBook };
   }
 
   async getBooks() {
-    const books = await this.prisma.book.findMany();
+    const books = await this.prisma.book.findMany({
+      include: { Review: true },
+    });
     return { status: 'success', length: books.length, data: books };
   }
 
   async getBook(id: string) {
-    const book = await this.prisma.book.findUnique({ where: { id: id } });
+    const book = await this.prisma.book.findUnique({
+      where: { id: id },
+      include: { Review: true },
+    });
     if (!book) {
       throw new NotFoundException('Book is not found');
     }
@@ -37,6 +45,7 @@ export class BookService {
     const newBook = await this.prisma.book.update({
       where: { id: id },
       data: { ...updateBookDto },
+      include: { Review: true },
     });
 
     return { status: 'success', data: newBook };

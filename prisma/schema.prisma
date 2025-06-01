@@ -41,12 +41,10 @@ model Review {
   rating    Int
   comment   String
   createdAt DateTime @default(now())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
-  bookId String
-  book   Book   @relation(fields: [bookId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id])
 
   @@unique([userId, bookId])
 }

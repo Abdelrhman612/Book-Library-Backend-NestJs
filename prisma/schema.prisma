@@ -15,6 +15,10 @@ model User {
   role             String  @default("user")
   verificationCode String?
   books            Book[]
+
+  Review Review[]
+
+  Favorite Favorite[]
 }
 
 model Book {
@@ -26,4 +30,33 @@ model Book {
   image       String?
   userId      String?
   user        User?   @relation(fields: [userId], references: [id])
+
+  Review Review[]
+
+  Favorite Favorite[]
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+
+  @@unique([userId, bookId])
+}
+
+model Favorite {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
+
+  @@unique([userId, bookId])
 }

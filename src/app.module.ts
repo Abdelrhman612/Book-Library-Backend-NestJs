@@ -8,7 +8,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CloudinaryModule } from './Module/cloudinary/cloudinary.module';
 import { CloudinaryController } from './Module/cloudinary/cloudinary.controller';
-import { ReviewModule } from './Module/Review/review.module';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { ReviewModule } from './Module/Review/review.module';
     UserModule,
     AuthModule,
     BookModule,
-    ReviewModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       serveRoot: '/client',

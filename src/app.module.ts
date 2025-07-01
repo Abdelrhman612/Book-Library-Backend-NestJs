@@ -16,7 +16,6 @@ import { SayHelloController } from './HelloWorld.Controller';
     UserModule,
     AuthModule,
     BookModule,
-    SayHelloController,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       serveRoot: '/client',
@@ -35,7 +34,7 @@ import { SayHelloController } from './HelloWorld.Controller';
     }),
     CloudinaryModule,
   ],
-  controllers: [CloudinaryController],
+  controllers: [SayHelloController, CloudinaryController],
   providers: [],
 })
 export class AppModule {}

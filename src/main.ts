@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { hostname } from 'os';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,7 +10,7 @@ async function bootstrap() {
   });
 
   app.setGlobalPrefix('api');
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
+  const port = process.env.PORT ?? 5000;
+  await app.listen(port, hostname ? hostname() : '0.0.0.0');
 }
 void bootstrap();

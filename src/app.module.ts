@@ -8,7 +8,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { CloudinaryModule } from './Module/cloudinary/cloudinary.module';
 import { CloudinaryController } from './Module/cloudinary/cloudinary.controller';
-import { SayHelloController } from './HelloWorld.Controller';
 
 @Module({
   imports: [
@@ -34,7 +33,7 @@ import { SayHelloController } from './HelloWorld.Controller';
     }),
     CloudinaryModule,
   ],
-  controllers: [SayHelloController, CloudinaryController],
+  controllers: [CloudinaryController],
   providers: [],
 })
 export class AppModule {}
